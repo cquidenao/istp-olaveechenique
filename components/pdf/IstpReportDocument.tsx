@@ -25,7 +25,7 @@ export type PdfReportData = {
   levelName: string;
   headline: string;
   introduction: string;
-risk: string;
+  risk: string;
   meaning: string;
   nextStep: string;
   service: string;
@@ -33,10 +33,12 @@ risk: string;
   logoUrl: string;
   evaluationDate: string;
 };
-Font.registerHyphenationCallback((word) => [word]);
+
 type Props = {
   data: PdfReportData;
 };
+
+Font.registerHyphenationCallback((word) => [word]);
 
 const colors = {
   black: "#090909",
@@ -57,25 +59,27 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontFamily: "Helvetica",
     fontSize: 10,
-    paddingBottom: 54,
+    paddingBottom: 52,
   },
 
   header: {
+    height: 108,
     backgroundColor: colors.black,
     paddingHorizontal: 40,
-    paddingVertical: 24,
+    paddingVertical: 18,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
 
   logo: {
-  width: 190,
-  height: 68,
-  objectFit: "contain",
-},
+    width: 180,
+    height: 64,
+    objectFit: "contain",
+  },
 
   headerRight: {
+    maxWidth: 280,
     alignItems: "flex-end",
   },
 
@@ -91,11 +95,17 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 13,
     fontFamily: "Helvetica-Bold",
+    textAlign: "right",
   },
 
   content: {
     paddingHorizontal: 40,
-    paddingTop: 30,
+    paddingTop: 27,
+  },
+
+  compactContent: {
+    paddingHorizontal: 40,
+    paddingTop: 22,
   },
 
   eyebrow: {
@@ -104,48 +114,61 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica-Bold",
     textTransform: "uppercase",
     letterSpacing: 1,
-    marginBottom: 8,
+    marginBottom: 7,
   },
 
   mainTitle: {
-    fontSize: 26,
+    fontSize: 25,
     lineHeight: 1.15,
     fontFamily: "Helvetica-Bold",
-    marginBottom: 8,
+    marginBottom: 7,
+  },
+
+  sectionTitle: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 16,
+    marginBottom: 6,
   },
 
   subtitle: {
     color: colors.grayText,
-    fontSize: 10,
-    lineHeight: 1.6,
+    fontSize: 9.5,
+    lineHeight: 1.55,
+  },
+
+  sectionDescription: {
+    color: colors.grayText,
+    fontSize: 9.5,
+    lineHeight: 1.55,
+    marginBottom: 14,
   },
 
   divider: {
     height: 3,
     backgroundColor: colors.orange,
     borderRadius: 2,
-    marginTop: 22,
-    marginBottom: 24,
+    marginTop: 19,
+    marginBottom: 20,
   },
 
   metadataRow: {
     flexDirection: "row",
-    gap: 10,
-    marginTop: 20,
+    gap: 9,
   },
 
   metadataBox: {
     flex: 1,
+    minHeight: 56,
     backgroundColor: colors.white,
     borderWidth: 1,
     borderColor: colors.grayBorder,
     borderRadius: 8,
-    padding: 13,
+    padding: 11,
   },
 
   metadataLabel: {
     color: colors.grayText,
-    fontSize: 8,
+    fontSize: 7.5,
     marginBottom: 5,
     textTransform: "uppercase",
     letterSpacing: 0.7,
@@ -153,20 +176,21 @@ const styles = StyleSheet.create({
 
   metadataValue: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 10,
+    fontSize: 9.5,
   },
 
   resultGrid: {
     flexDirection: "row",
-    gap: 18,
-    marginTop: 22,
+    gap: 16,
+    marginTop: 19,
   },
 
   scoreCard: {
     width: "35%",
+    minHeight: 245,
     backgroundColor: colors.black,
     borderRadius: 12,
-    padding: 22,
+    padding: 20,
   },
 
   scoreLabel: {
@@ -184,13 +208,13 @@ const styles = StyleSheet.create({
   scoreNumber: {
     color: colors.white,
     fontFamily: "Helvetica-Bold",
-    fontSize: 50,
+    fontSize: 48,
     lineHeight: 1,
   },
 
   scoreMaximum: {
     color: colors.lightText,
-    fontSize: 12,
+    fontSize: 11,
     marginBottom: 6,
     marginLeft: 5,
   },
@@ -198,64 +222,55 @@ const styles = StyleSheet.create({
   scoreDivider: {
     height: 1,
     backgroundColor: "#353535",
-    marginVertical: 18,
+    marginVertical: 16,
   },
 
   levelLabel: {
     color: colors.lightText,
     fontSize: 8,
-    marginBottom: 7,
+    marginBottom: 6,
   },
 
   levelName: {
     color: colors.orange,
     fontFamily: "Helvetica-Bold",
-    fontSize: 23,
-    marginBottom: 12,
+    fontSize: 22,
+    marginBottom: 10,
   },
 
   levelHeadline: {
     color: "#D7D7D7",
-    fontSize: 9,
-    lineHeight: 1.6,
+    fontSize: 8.7,
+    lineHeight: 1.55,
   },
 
   nextStepCard: {
     flex: 1,
+    minHeight: 245,
     backgroundColor: colors.orangeSoft,
     borderWidth: 1,
     borderColor: "#F7C9A8",
     borderRadius: 12,
-    padding: 22,
-  },
-
-  sectionTitle: {
-    fontFamily: "Helvetica-Bold",
-    fontSize: 17,
-    marginBottom: 6,
-  },
-
-  sectionDescription: {
-    color: colors.grayText,
-    lineHeight: 1.6,
-    marginBottom: 17,
+    padding: 20,
   },
 
   highlightedTitle: {
     color: colors.orangeDark,
     fontFamily: "Helvetica-Bold",
-    fontSize: 10,
-    marginBottom: 10,
+    fontSize: 9,
+    marginBottom: 8,
+  },
+
+  highlightedService: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 15.5,
+    lineHeight: 1.18,
+    marginBottom: 9,
   },
 
   highlightedText: {
-    fontSize: 11,
-    lineHeight: 1.7,
-  },
-
-  pageSection: {
-    paddingHorizontal: 40,
-    paddingTop: 32,
+    fontSize: 9.5,
+    lineHeight: 1.55,
   },
 
   whiteCard: {
@@ -263,47 +278,51 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.grayBorder,
     borderRadius: 12,
-    padding: 22,
-    marginBottom: 18,
+    padding: 18,
+    marginBottom: 14,
   },
 
   dimensionItem: {
-    marginBottom: 19,
+    marginBottom: 16,
+  },
+
+  dimensionItemLast: {
+    marginBottom: 0,
   },
 
   dimensionHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     gap: 10,
-    marginBottom: 6,
+    marginBottom: 5,
   },
 
   dimensionName: {
+    maxWidth: "78%",
     fontFamily: "Helvetica-Bold",
-    fontSize: 10,
-    maxWidth: "76%",
+    fontSize: 9.5,
   },
 
   dimensionScore: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 10,
+    fontSize: 9.5,
   },
 
   percentageText: {
     color: colors.grayText,
-    fontSize: 8,
-    marginBottom: 7,
+    fontSize: 7.5,
+    marginBottom: 6,
   },
 
   progressBackground: {
-    height: 8,
+    height: 7,
     backgroundColor: "#E3E3E1",
     borderRadius: 4,
     overflow: "hidden",
   },
 
   progressBar: {
-    height: 8,
+    height: 7,
     backgroundColor: colors.orange,
     borderRadius: 4,
   },
@@ -311,71 +330,135 @@ const styles = StyleSheet.create({
   reportBlock: {
     borderLeftWidth: 3,
     borderLeftColor: colors.orange,
-    paddingLeft: 15,
-    marginBottom: 19,
+    paddingLeft: 13,
+    marginBottom: 15,
+  },
+
+  reportBlockLast: {
+    borderLeftWidth: 3,
+    borderLeftColor: colors.orange,
+    paddingLeft: 13,
+    marginBottom: 0,
   },
 
   reportBlockTitle: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 11,
-    marginBottom: 7,
+    fontSize: 10.5,
+    marginBottom: 6,
   },
 
   reportBlockText: {
     color: "#4F4F4F",
+    fontSize: 9.2,
+    lineHeight: 1.55,
+  },
+
+  insightGrid: {
+    flexDirection: "row",
+    gap: 12,
+    marginTop: 12,
+  },
+
+  insightCard: {
+    flex: 1,
+    backgroundColor: colors.orangeSoft,
+    borderWidth: 1,
+    borderColor: "#F7C9A8",
+    borderRadius: 10,
+    padding: 14,
+  },
+
+  insightLabel: {
+    color: colors.orangeDark,
+    fontFamily: "Helvetica-Bold",
+    fontSize: 8,
+    marginBottom: 6,
+    textTransform: "uppercase",
+  },
+
+  insightName: {
+    fontFamily: "Helvetica-Bold",
     fontSize: 10,
-    lineHeight: 1.7,
+    lineHeight: 1.35,
+  },
+
+  insightValue: {
+    color: colors.grayText,
+    fontSize: 8.5,
+    marginTop: 5,
+  },
+
+  serviceCard: {
+    backgroundColor: colors.orangeSoft,
+    borderWidth: 1,
+    borderColor: "#F7C9A8",
+    borderRadius: 12,
+    padding: 17,
+    marginBottom: 14,
+  },
+
+  serviceTitle: {
+    color: colors.orangeDark,
+    fontFamily: "Helvetica-Bold",
+    fontSize: 9,
+    marginBottom: 7,
+  },
+
+  serviceText: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 14,
+    lineHeight: 1.3,
   },
 
   ctaCard: {
     backgroundColor: colors.black,
     borderRadius: 12,
-    padding: 22,
-    marginTop: 4,
+    padding: 17,
+    marginTop: 2,
   },
 
   ctaEyebrow: {
     color: colors.orange,
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
-    marginBottom: 8,
+    fontSize: 8.5,
+    marginBottom: 7,
   },
 
   ctaTitle: {
     color: colors.white,
     fontFamily: "Helvetica-Bold",
-    fontSize: 16,
-    marginBottom: 10,
+    fontSize: 15,
+    marginBottom: 8,
   },
 
   ctaText: {
     color: "#C8C8C8",
-    fontSize: 9,
-    lineHeight: 1.7,
-    marginBottom: 13,
+    fontSize: 8.8,
+    lineHeight: 1.55,
+    marginBottom: 10,
   },
 
   contactText: {
     color: colors.white,
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 8.5,
   },
 
   disclaimer: {
     color: colors.grayText,
-    fontSize: 8,
-    lineHeight: 1.55,
-    marginTop: 18,
+    fontSize: 7,
+    lineHeight: 1.45,
+    marginTop: 11,
   },
 
   footer: {
     position: "absolute",
-    bottom: 20,
+    bottom: 18,
     left: 40,
     right: 40,
     borderTopWidth: 1,
     borderTopColor: colors.grayBorder,
-    paddingTop: 9,
+    paddingTop: 8,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -394,7 +477,7 @@ function PdfHeader({
   title: string;
 }) {
   return (
-    <View style={styles.header}>
+    <View style={styles.header} fixed>
       <Image src={logoUrl} style={styles.logo} />
 
       <View style={styles.headerRight}>
@@ -422,13 +505,38 @@ function PdfFooter() {
   );
 }
 
+function ReportBlock({
+  title,
+  text,
+  last = false,
+}: {
+  title: string;
+  text: string;
+  last?: boolean;
+}) {
+  return (
+    <View style={last ? styles.reportBlockLast : styles.reportBlock}>
+      <Text style={styles.reportBlockTitle}>{title}</Text>
+      <Text style={styles.reportBlockText}>{text}</Text>
+    </View>
+  );
+}
+
 export default function IstpReportDocument({ data }: Props) {
+  const orderedDimensions = [...data.dimensionResults].sort(
+    (a, b) => b.percentage - a.percentage,
+  );
+
+  const strongestDimension = orderedDimensions[0];
+  const weakestDimension = orderedDimensions[orderedDimensions.length - 1];
+
   return (
     <Document
       title={`Informe ISTP - ${data.companyName}`}
       author="OlaveEchenique Abogados | Consultores"
       subject="Resultado de autoevaluación ISTP"
     >
+      {/* PÁGINA 1: RESUMEN EJECUTIVO */}
       <Page size="A4" style={styles.page}>
         <PdfHeader
           logoUrl={data.logoUrl}
@@ -451,7 +559,7 @@ export default function IstpReportDocument({ data }: Props) {
 
           <View style={styles.divider} />
 
-          <View style={styles.metadataRow}>
+          <View style={styles.metadataRow} wrap={false}>
             <View style={styles.metadataBox}>
               <Text style={styles.metadataLabel}>Empresa</Text>
               <Text style={styles.metadataValue}>{data.companyName}</Text>
@@ -468,7 +576,7 @@ export default function IstpReportDocument({ data }: Props) {
             </View>
           </View>
 
-          <View style={styles.resultGrid}>
+          <View style={styles.resultGrid} wrap={false}>
             <View style={styles.scoreCard}>
               <Text style={styles.scoreLabel}>Puntaje total ISTP</Text>
 
@@ -481,7 +589,6 @@ export default function IstpReportDocument({ data }: Props) {
 
               <Text style={styles.levelLabel}>Nivel alcanzado</Text>
               <Text style={styles.levelName}>{data.levelName}</Text>
-
               <Text style={styles.levelHeadline}>{data.headline}</Text>
             </View>
 
@@ -490,39 +597,45 @@ export default function IstpReportDocument({ data }: Props) {
                 Próximo paso sugerido
               </Text>
 
-              <Text style={styles.sectionTitle}>{data.service}</Text>
-
+              <Text style={styles.highlightedService}>{data.service}</Text>
               <Text style={styles.highlightedText}>{data.nextStep}</Text>
             </View>
           </View>
-
-          
         </View>
 
         <PdfFooter />
       </Page>
 
+      {/* PÁGINA 2: DIMENSIONES E INTERPRETACIÓN */}
       <Page size="A4" style={styles.page}>
         <PdfHeader
           logoUrl={data.logoUrl}
           title="Resultados por dimensión"
         />
 
-        <View style={styles.pageSection}>
+        <View style={styles.compactContent}>
           <Text style={styles.eyebrow}>Desglose ISTP</Text>
+
           <Text style={styles.sectionTitle}>
             Resultado de las tres dimensiones
           </Text>
 
           <Text style={styles.sectionDescription}>
             El puntaje total se construye a partir de estrategia y
-            transparencia, control y cumplimiento, y relación cooperativa con
+            transparencia, control, riesgos y cumplimiento, y cooperación con
             el Servicio de Impuestos Internos.
           </Text>
 
-          <View style={styles.whiteCard}>
-            {data.dimensionResults.map((dimension) => (
-              <View key={dimension.id} style={styles.dimensionItem}>
+          <View style={styles.whiteCard} wrap={false}>
+            {data.dimensionResults.map((dimension, index) => (
+              <View
+                key={dimension.id}
+                style={
+                  index === data.dimensionResults.length - 1
+                    ? styles.dimensionItemLast
+                    : styles.dimensionItem
+                }
+              >
                 <View style={styles.dimensionHeader}>
                   <Text style={styles.dimensionName}>
                     {dimension.id}. {dimension.name}
@@ -549,93 +662,122 @@ export default function IstpReportDocument({ data }: Props) {
             ))}
           </View>
 
-          <View style={styles.whiteCard}>
+          <View style={styles.insightGrid} wrap={false}>
+            <View style={styles.insightCard}>
+              <Text style={styles.insightLabel}>Fortaleza principal</Text>
+              <Text style={styles.insightName}>
+                {strongestDimension.name}
+              </Text>
+              <Text style={styles.insightValue}>
+                {strongestDimension.percentage}% del puntaje máximo
+              </Text>
+            </View>
+
+            <View style={styles.insightCard}>
+              <Text style={styles.insightLabel}>Brecha prioritaria</Text>
+              <Text style={styles.insightName}>{weakestDimension.name}</Text>
+              <Text style={styles.insightValue}>
+                {weakestDimension.percentage}% del puntaje máximo
+              </Text>
+            </View>
+          </View>
+
+          <View style={[styles.whiteCard, { marginTop: 14 }]} wrap={false}>
             <Text style={styles.eyebrow}>Interpretación</Text>
+
             <Text style={styles.sectionTitle}>
               ¿Qué significa para tu empresa?
             </Text>
 
-            <View style={styles.reportBlock}>
-              <Text style={styles.reportBlockTitle}>
-                Situación actual
-              </Text>
+            <ReportBlock
+              title="Situación actual"
+              text={data.meaning}
+            />
 
-              <Text style={styles.reportBlockText}>{data.meaning}</Text>
-            </View>
-
-            <View style={styles.reportBlock}>
-              <Text style={styles.reportBlockTitle}>
-                Recomendación prioritaria
-              </Text>
-
-              <Text style={styles.reportBlockText}>{data.nextStep}</Text>
-            </View>
+            <ReportBlock
+              title="Recomendación prioritaria"
+              text={data.nextStep}
+              last
+            />
           </View>
         </View>
 
         <PdfFooter />
       </Page>
 
+      {/* PÁGINA 3: DIAGNÓSTICO COMPLETO */}
+      <Page size="A4" style={styles.page}>
+        <PdfHeader
+          logoUrl={data.logoUrl}
+          title="Informe personalizado"
+        />
+
+        <View style={styles.compactContent}>
+          <Text style={styles.eyebrow}>Lectura del resultado</Text>
+
+          <Text style={styles.mainTitle}>Diagnóstico tributario</Text>
+
+          <Text style={styles.sectionDescription}>
+            Esta sección desarrolla el significado del nivel obtenido y las
+            principales implicancias para la empresa.
+          </Text>
+
+          <View style={styles.whiteCard} wrap={false}>
+            <ReportBlock
+              title="Diagnóstico general"
+              text={data.introduction}
+            />
+
+            <ReportBlock
+              title="Riesgos e implicancias"
+              text={data.risk}
+              last
+            />
+          </View>
+
+          <View style={styles.serviceCard} wrap={false}>
+            <Text style={styles.serviceTitle}>
+              Servicio recomendado
+            </Text>
+
+            <Text style={styles.serviceText}>{data.service}</Text>
+          </View>
+        </View>
+
+        <PdfFooter />
+      </Page>
+
+      {/* PÁGINA 4: PLAN DE ACCIÓN Y CONTACTO */}
       <Page size="A4" style={styles.page}>
         <PdfHeader
           logoUrl={data.logoUrl}
           title="Plan de acción sugerido"
         />
 
-        <View style={styles.pageSection}>
-          <Text style={styles.eyebrow}>Informe personalizado</Text>
-          <Text style={styles.mainTitle}>
-            Da el siguiente paso
-          </Text>
+        <View style={styles.compactContent}>
+          <Text style={styles.eyebrow}>Siguiente etapa</Text>
+
+          <Text style={styles.mainTitle}>Da el siguiente paso</Text>
 
           <Text style={styles.sectionDescription}>
             El resultado debe entenderse como una fotografía del estado actual
             de la gestión tributaria y como una guía para priorizar mejoras.
           </Text>
 
-          <View style={styles.whiteCard}>
-  <View style={styles.reportBlock}>
-    <Text style={styles.reportBlockTitle}>
-      Diagnóstico general
-    </Text>
+          <View style={styles.whiteCard} wrap={false}>
+            <ReportBlock
+              title="Qué significa para tu empresa"
+              text={data.meaning}
+            />
 
-    <Text style={styles.reportBlockText}>
-      {data.introduction}
-    </Text>
-  </View>
+            <ReportBlock
+              title="Por dónde seguir"
+              text={data.nextStep}
+              last
+            />
+          </View>
 
-  <View style={styles.reportBlock}>
-    <Text style={styles.reportBlockTitle}>
-      Riesgos e implicancias
-    </Text>
-
-    <Text style={styles.reportBlockText}>
-      {data.risk}
-    </Text>
-  </View>
-
-  <View style={styles.reportBlock}>
-    <Text style={styles.reportBlockTitle}>
-      Qué significa para tu empresa
-    </Text>
-
-    <Text style={styles.reportBlockText}>
-      {data.meaning}
-    </Text>
-  </View>
-
-  <View style={styles.reportBlock}>
-    <Text style={styles.reportBlockTitle}>
-      Por dónde seguir
-    </Text>
-
-    <Text style={styles.reportBlockText}>
-      {data.nextStep}
-    </Text>
-  </View>
-</View>
-
-          <View style={styles.ctaCard}>
+          <View style={styles.ctaCard} wrap={false}>
             <Text style={styles.ctaEyebrow}>
               OlaveEchenique Abogados | Consultores
             </Text>
@@ -654,7 +796,7 @@ export default function IstpReportDocument({ data }: Props) {
               contacto@olaveechenique.cl
             </Text>
 
-            <Text style={[styles.contactText, { marginTop: 5 }]}>
+            <Text style={[styles.contactText, { marginTop: 4 }]}>
               www.olaveechenique.cl
             </Text>
           </View>
