@@ -205,21 +205,24 @@ export default function EvaluationPage() {
             </span>
           </label>
 
-          <div className="mt-8 flex items-center justify-between border-t border-black/10 pt-7">
-            <Link
-              href="/"
-              className="rounded-xl border border-black/15 px-6 py-3 text-sm font-semibold hover:bg-black/5"
-            >
-              Volver
-            </Link>
+          <div className="mt-8 flex flex-col-reverse gap-3 border-t border-black/10 pt-7 sm:flex-row sm:items-center sm:justify-between">
+  <Link
+    href="/"
+    className="inline-flex w-full items-center justify-center rounded-xl border border-black/15 px-6 py-4 text-base font-semibold transition hover:bg-black/5 sm:w-auto sm:py-3"
+  >
+    Volver
+  </Link>
 
-            <button
-              type="submit"
-              className="rounded-xl bg-[#f37521] px-7 py-3 text-sm font-semibold text-white hover:bg-[#dc6415]"
-            >
-              Continuar al cuestionario →
-            </button>
-          </div>
+  <button
+    type="submit"
+    className="inline-flex w-full items-center justify-center rounded-xl bg-[#f37521] px-6 py-4 text-base font-semibold text-white transition hover:bg-[#dc6415] sm:w-auto sm:py-3"
+  >
+    Continuar al cuestionario
+    <span className="ml-2" aria-hidden="true">
+      →
+    </span>
+  </button>
+</div>
         </form>
 
         <aside className="rounded-3xl bg-[#111111] p-7 text-white">
