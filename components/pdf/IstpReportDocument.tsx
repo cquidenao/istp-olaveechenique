@@ -496,11 +496,7 @@ export default function IstpReportDocument({ data }: Props) {
             </View>
           </View>
 
-          <View style={[styles.whiteCard, { marginTop: 22 }]}>
-            <Text style={styles.eyebrow}>Lectura del resultado</Text>
-            <Text style={styles.sectionTitle}>Diagnóstico general</Text>
-            <Text style={styles.sectionDescription}>{data.introduction}</Text>
-          </View>
+          
         </View>
 
         <PdfFooter />
