@@ -272,21 +272,26 @@ export default function ResultPage() {
               </h2>
 
               <div className="mt-7 space-y-7">
-                <ReportBlock
-                  title="Diagnóstico general"
-                  text={report.summary}
-                />
+  <ReportBlock
+    title="Diagnóstico general"
+    text={report.introduction}
+  />
 
-                <ReportBlock
-                  title="Qué significa para tu empresa"
-                  text={report.meaning}
-                />
+  <ReportBlock
+    title="Riesgos e implicancias"
+    text={report.risk}
+  />
 
-                <ReportBlock
-                  title="Por dónde seguir"
-                  text={report.nextStep}
-                />
-              </div>
+  <ReportBlock
+    title="Qué significa para tu empresa"
+    text={report.meaning}
+  />
+
+  <ReportBlock
+    title="Por dónde seguir"
+    text={report.nextStep}
+  />
+</div>
             </section>
 
             <section className="rounded-3xl border border-black/10 bg-[#111111] p-6 text-white shadow-sm sm:p-8">
@@ -334,7 +339,8 @@ export default function ResultPage() {
     totalScore,
     levelName: report.name,
     headline: report.headline,
-    summary: report.summary,
+    introduction: report.introduction,
+    risk: report.risk,
     meaning: report.meaning,
     nextStep: report.nextStep,
     service: report.service,

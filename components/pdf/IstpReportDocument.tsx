@@ -24,7 +24,8 @@ export type PdfReportData = {
   totalScore: number;
   levelName: string;
   headline: string;
-  summary: string;
+  introduction: string;
+risk: string;
   meaning: string;
   nextStep: string;
   service: string;
@@ -498,7 +499,7 @@ export default function IstpReportDocument({ data }: Props) {
           <View style={[styles.whiteCard, { marginTop: 22 }]}>
             <Text style={styles.eyebrow}>Lectura del resultado</Text>
             <Text style={styles.sectionTitle}>Diagnóstico general</Text>
-            <Text style={styles.sectionDescription}>{data.summary}</Text>
+            <Text style={styles.sectionDescription}>{data.introduction}</Text>
           </View>
         </View>
 
@@ -597,27 +598,46 @@ export default function IstpReportDocument({ data }: Props) {
           </Text>
 
           <View style={styles.whiteCard}>
-            <View style={styles.reportBlock}>
-              <Text style={styles.reportBlockTitle}>
-                Diagnóstico general
-              </Text>
-              <Text style={styles.reportBlockText}>{data.summary}</Text>
-            </View>
+  <View style={styles.reportBlock}>
+    <Text style={styles.reportBlockTitle}>
+      Diagnóstico general
+    </Text>
 
-            <View style={styles.reportBlock}>
-              <Text style={styles.reportBlockTitle}>
-                Qué significa para tu empresa
-              </Text>
-              <Text style={styles.reportBlockText}>{data.meaning}</Text>
-            </View>
+    <Text style={styles.reportBlockText}>
+      {data.introduction}
+    </Text>
+  </View>
 
-            <View style={styles.reportBlock}>
-              <Text style={styles.reportBlockTitle}>
-                Por dónde seguir
-              </Text>
-              <Text style={styles.reportBlockText}>{data.nextStep}</Text>
-            </View>
-          </View>
+  <View style={styles.reportBlock}>
+    <Text style={styles.reportBlockTitle}>
+      Riesgos e implicancias
+    </Text>
+
+    <Text style={styles.reportBlockText}>
+      {data.risk}
+    </Text>
+  </View>
+
+  <View style={styles.reportBlock}>
+    <Text style={styles.reportBlockTitle}>
+      Qué significa para tu empresa
+    </Text>
+
+    <Text style={styles.reportBlockText}>
+      {data.meaning}
+    </Text>
+  </View>
+
+  <View style={styles.reportBlock}>
+    <Text style={styles.reportBlockTitle}>
+      Por dónde seguir
+    </Text>
+
+    <Text style={styles.reportBlockText}>
+      {data.nextStep}
+    </Text>
+  </View>
+</View>
 
           <View style={styles.ctaCard}>
             <Text style={styles.ctaEyebrow}>
