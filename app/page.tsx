@@ -12,7 +12,7 @@ export default function Home() {
             width={260}
             height={90}
             priority
-            className="h-auto w-[190px] md:w-[240px]"
+            className="h-auto w-[230px] md:w-[290px]"
           />
 
           <a

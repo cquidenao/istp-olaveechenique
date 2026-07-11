@@ -163,7 +163,7 @@ export default function QuestionnairePage() {
               width={220}
               height={72}
               priority
-              className="h-auto w-[170px] md:w-[210px]"
+              className="h-auto w-[210px] md:w-[260px]"
             />
           </Link>
 

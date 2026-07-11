@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 150,
-    height: 55,
-    objectFit: "contain",
-  },
+  width: 190,
+  height: 68,
+  objectFit: "contain",
+},
 
   headerRight: {
     alignItems: "flex-end",
