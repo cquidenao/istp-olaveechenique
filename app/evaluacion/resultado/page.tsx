@@ -271,7 +271,7 @@ export default function ResultPage() {
                 ¿Qué significa tu puntaje?
               </h2>
 
-              <div className="mt-7 space-y-7">
+              <div className="mt-8 space-y-9">
   <ReportBlock
     title="Diagnóstico general"
     text={report.introduction}
