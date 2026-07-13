@@ -54,6 +54,14 @@ export default function ResultPage() {
     useState<ParticipantData | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const [saveStatus, setSaveStatus] = useState<
+  "idle" | "saving" | "saved" | "error"
+>("idle");
+
+const [savedEvaluationId, setSavedEvaluationId] = useState<string | null>(
+  null,
+);
+
   useEffect(() => {
     const savedAnswers = localStorage.getItem("istp-answers");
     const savedParticipant = localStorage.getItem(
@@ -81,8 +89,10 @@ export default function ResultPage() {
       }
 
       setAnswers(parsedAnswers);
-      setParticipant(parsedParticipant);
-      setIsLoaded(true);
+setParticipant(parsedParticipant);
+setIsLoaded(true);
+
+void saveEvaluation(parsedParticipant, parsedAnswers);
     } catch {
       localStorage.removeItem("istp-answers");
       localStorage.removeItem("istp-participant-data");
@@ -99,47 +109,106 @@ export default function ResultPage() {
   }, [answers]);
 
   const dimensionResults = useMemo<DimensionResult[]>(() => {
-    if (!answers) return [];
+  if (!answers) return [];
 
-    return dimensions.map((dimension) => {
-      const dimensionQuestions = questions.filter(
-        (question) => question.dimension === dimension.id,
-      );
-
-      const score = dimensionQuestions.reduce((total, question) => {
-        return total + (answers[question.id] ?? 0);
-      }, 0);
-
-      return {
-        id: dimension.id,
-        name: dimension.name,
-        score,
-        maxScore: dimension.maxScore,
-        percentage: Math.round(
-          (score / dimension.maxScore) * 100,
-        ),
-      };
-    });
-  }, [answers]);
-
-  const report = getResultReport(totalScore);
-
-  function restartEvaluation() {
-    localStorage.removeItem("istp-answers");
-    localStorage.removeItem("istp-current-dimension");
-
-    router.push("/evaluacion/cuestionario");
-  }
-
-  if (!isLoaded || !participant || !answers) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-[#f5f5f3]">
-        <p className="text-sm text-black/50">
-          Calculando tu resultado...
-        </p>
-      </main>
+  return dimensions.map((dimension) => {
+    const dimensionQuestions = questions.filter(
+      (question) => question.dimension === dimension.id,
     );
+
+    const score = dimensionQuestions.reduce((total, question) => {
+      return total + (answers[question.id] ?? 0);
+    }, 0);
+
+    return {
+      id: dimension.id,
+      name: dimension.name,
+      score,
+      maxScore: dimension.maxScore,
+      percentage: Math.round(
+        (score / dimension.maxScore) * 100,
+      ),
+    };
+  });
+}, [answers]);
+
+const report = getResultReport(totalScore);
+
+async function saveEvaluation(
+  participantData: ParticipantData,
+  evaluationAnswers: Answers,
+) {
+  const existingEvaluationId = localStorage.getItem(
+    "istp-saved-evaluation-id",
+  );
+
+  if (existingEvaluationId) {
+    setSavedEvaluationId(existingEvaluationId);
+    setSaveStatus("saved");
+    return;
   }
+
+  setSaveStatus("saving");
+
+  try {
+    const response = await fetch("/api/evaluations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        participant: participantData,
+        answers: evaluationAnswers,
+      }),
+    });
+
+    const result = (await response.json()) as {
+      ok: boolean;
+      evaluation?: {
+        id: string;
+        total_score: number;
+        result_level: string;
+        created_at: string;
+      };
+      error?: string;
+    };
+
+    if (!response.ok || !result.ok || !result.evaluation) {
+      throw new Error(
+        result.error ?? "No fue posible guardar la evaluación.",
+      );
+    }
+
+    localStorage.setItem(
+      "istp-saved-evaluation-id",
+      result.evaluation.id,
+    );
+
+    setSavedEvaluationId(result.evaluation.id);
+    setSaveStatus("saved");
+  } catch (error) {
+    console.error("Error guardando la evaluación:", error);
+    setSaveStatus("error");
+  }
+}
+
+function restartEvaluation() {
+  localStorage.removeItem("istp-answers");
+  localStorage.removeItem("istp-current-dimension");
+  localStorage.removeItem("istp-saved-evaluation-id");
+
+  router.push("/evaluacion/cuestionario");
+}
+
+if (!isLoaded || !participant || !answers) {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-[#f5f5f3]">
+      <p className="text-sm text-black/50">
+        Calculando tu resultado...
+      </p>
+    </main>
+  );
+}
 
   return (
     <main className="min-h-screen bg-[#f5f5f3] text-[#171717]">
