@@ -34,8 +34,17 @@ export default function EvaluationPage() {
       return;
     }
 
-    localStorage.setItem("istp-participant-data", JSON.stringify(form));
-    router.push("/evaluacion/cuestionario");
+    // Inicia una evaluación completamente nueva.
+localStorage.removeItem("istp-answers");
+localStorage.removeItem("istp-current-dimension");
+localStorage.removeItem("istp-saved-evaluation-id");
+
+localStorage.setItem(
+  "istp-participant-data",
+  JSON.stringify(form),
+);
+
+router.push("/evaluacion/cuestionario");
   }
 
   return (
