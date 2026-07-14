@@ -113,7 +113,23 @@ export default async function AdminPage() {
       </header>
 
       <section className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+  <nav className="flex w-full rounded-2xl border border-black/10 bg-white p-1 shadow-sm sm:w-fit">
+    <Link
+      href="/admin"
+      className="rounded-xl bg-black px-5 py-2.5 text-sm font-semibold text-white"
+    >
+      Resumen
+    </Link>
+
+    <Link
+      href="/admin/analitica"
+      className="rounded-xl px-5 py-2.5 text-sm font-semibold text-black/55 transition hover:text-black"
+    >
+      Analítica
+    </Link>
+  </nav>
+
+  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-semibold text-[#ed741f]">
               Administración ISTP
