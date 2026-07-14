@@ -15,14 +15,20 @@ export default function Home() {
             className="h-auto w-[230px] md:w-[290px]"
           />
 
-          <a
-            href="https://www.olaveechenique.cl/"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden text-sm text-white/70 transition hover:text-white md:block"
-          >
-            Volver al sitio principal
-          </a>
+          <Link
+  href="/admin/login"
+  className="text-sm text-white/70 transition hover:text-[#f37521]"
+>
+  <span className="sm:hidden">Admin</span>
+  <span className="hidden sm:inline">Administrador</span>
+</Link>
+
+<Link
+  href="https://www.olaveechenique.cl/"
+  className="hidden text-sm text-white/70 transition hover:text-white sm:block"
+>
+  Volver al sitio principal
+</Link>
         </div>
       </header>
 

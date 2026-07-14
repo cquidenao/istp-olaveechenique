@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import LogoutButton from "./LogoutButton";
-
+import EvaluationsTable from "./EvaluationsTable";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -177,105 +177,7 @@ export default async function AdminPage() {
           </article>
         </div>
 
-        <section className="mt-8 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
-          <div className="border-b border-black/10 px-6 py-5">
-            <h2 className="text-xl font-semibold">
-              Historial de evaluaciones
-            </h2>
-          </div>
-
-          {rows.length === 0 ? (
-            <div className="px-6 py-12 text-center text-sm text-black/50">
-              Todavía no hay evaluaciones registradas.
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-left text-sm">
-                <thead className="bg-black/[0.03] text-black/55">
-                  <tr>
-                    <th className="px-6 py-4 font-medium">
-                      Fecha
-                    </th>
-                    <th className="px-6 py-4 font-medium">
-                      Empresa
-                    </th>
-                    <th className="px-6 py-4 font-medium">
-                      Responsable
-                    </th>
-                    <th className="px-6 py-4 font-medium">
-                      Correo
-                    </th>
-                    <th className="px-6 py-4 font-medium">
-                      Ciudad
-                    </th>
-                    <th className="px-6 py-4 font-medium">
-                      Puntaje
-                    </th>
-                    <th className="px-6 py-4 font-medium">
-                      Nivel
-                    </th>
-                    <th className="px-6 py-4 font-medium">
-  Acción
-</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {rows.map((evaluation) => (
-                    <tr
-                      key={evaluation.id}
-                      className="border-t border-black/10"
-                    >
-                      <td className="whitespace-nowrap px-6 py-4 text-black/55">
-                        {new Intl.DateTimeFormat("es-CL", {
-                          dateStyle: "short",
-                          timeStyle: "short",
-                        }).format(
-                          new Date(evaluation.created_at),
-                        )}
-                      </td>
-
-                      <td className="px-6 py-4 font-medium">
-                        {evaluation.company_name}
-                      </td>
-
-                      <td className="px-6 py-4">
-                        {evaluation.full_name}
-                      </td>
-
-                      <td className="px-6 py-4 text-black/60">
-                        {evaluation.email}
-                      </td>
-
-                      <td className="px-6 py-4">
-                        {evaluation.city}
-                      </td>
-
-                      <td className="px-6 py-4 font-semibold">
-  {evaluation.total_score}/100
-</td>
-
-<td className="px-6 py-4">
-  <span className="inline-flex rounded-full bg-[#fff3ea] px-3 py-1 text-xs font-semibold text-[#d95f12]">
-    {evaluation.result_level}
-  </span>
-</td>
-
-<td className="px-6 py-4">
-  <Link
-    href={`/admin/evaluaciones/${evaluation.id}`}
-    className="inline-flex whitespace-nowrap rounded-xl border border-black/15 px-4 py-2 text-xs font-semibold transition hover:border-[#f37521] hover:text-[#d95f12]"
-  >
-    Ver detalle
-  </Link>
-</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
+        <EvaluationsTable evaluations={rows} />
       </section>
     </main>
   );
