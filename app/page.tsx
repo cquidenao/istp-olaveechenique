@@ -12,23 +12,28 @@ export default function Home() {
             width={260}
             height={90}
             priority
-            className="h-auto w-[230px] md:w-[290px]"
+            className="h-auto w-[180px] sm:w-[230px] md:w-[260px]"
           />
 
-          <Link
-  href="/admin/login"
-  className="text-sm text-white/70 transition hover:text-[#f37521]"
->
-  <span className="sm:hidden">Admin</span>
-  <span className="hidden sm:inline">Administrador</span>
-</Link>
+          <div className="flex items-center gap-4 sm:gap-6">
+  <Link
+    href="/admin/login"
+    className="text-sm text-white/70 transition hover:text-[#f37521]"
+  >
+    <span className="sm:hidden">Admin</span>
+    <span className="hidden sm:inline">Administrador</span>
+  </Link>
 
-<Link
-  href="https://www.olaveechenique.cl/"
-  className="hidden text-sm text-white/70 transition hover:text-white sm:block"
->
-  Volver al sitio principal
-</Link>
+  <Link
+    href="https://www.olaveechenique.cl/"
+    className="text-sm text-white/70 transition hover:text-white"
+  >
+    <span className="sm:hidden">Sitio principal</span>
+    <span className="hidden sm:inline">
+      Volver al sitio principal
+    </span>
+  </Link>
+</div>
         </div>
       </header>
 
