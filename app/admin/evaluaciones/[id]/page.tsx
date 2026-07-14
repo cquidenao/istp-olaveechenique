@@ -36,6 +36,13 @@ type PageProps = {
   }>;
 };
 
+type DimensionSummary = {
+  id: number;
+  name: string;
+  score: number;
+  maxScore: number;
+};
+
 function getAllowedAdminEmails(): string[] {
   return (process.env.ADMIN_EMAILS ?? "")
     .split(",")
@@ -49,6 +56,22 @@ function getAnswerLabel(value: number | undefined): string {
   if (value === 0) return "No";
 
   return "Sin respuesta";
+}
+
+function getAnswerStyles(value: number | undefined): string {
+  if (value === 5) {
+    return "bg-[#f37521] text-white";
+  }
+
+  if (value === 3) {
+    return "bg-amber-50 text-amber-700";
+  }
+
+  if (value === 0) {
+    return "bg-black/[0.05] text-black/65";
+  }
+
+  return "bg-red-50 text-red-700";
 }
 
 function getLevelStyles(level: string): string {
@@ -126,9 +149,10 @@ export default async function EvaluationDetailPage({
   const formattedDate = new Intl.DateTimeFormat("es-CL", {
     dateStyle: "long",
     timeStyle: "short",
+    timeZone: "America/Santiago",
   }).format(new Date(evaluation.created_at));
 
-  const dimensions = [
+  const dimensions: DimensionSummary[] = [
     {
       id: 1,
       name: "Estrategia y transparencia",
@@ -149,27 +173,34 @@ export default async function EvaluationDetailPage({
     },
   ];
 
+  const questionGroups = dimensions.map((dimension) => ({
+    ...dimension,
+    questions: questions.filter(
+      (question) => question.dimension === dimension.id,
+    ),
+  }));
+
   return (
     <main className="min-h-screen bg-[#f5f5f3] text-[#171717]">
       <header className="border-b border-white/10 bg-black text-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-10">
-          <Link href="/">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-6 lg:px-10">
+          <Link href="/" className="shrink-0">
             <Image
               src="/images/logo-olave-echenique.jpeg"
               alt="OlaveEchenique"
               width={260}
               height={90}
               priority
-              className="h-auto w-[175px] sm:w-[220px]"
+              className="h-auto w-[160px] sm:w-[220px]"
             />
           </Link>
 
-          <div className="text-right">
+          <div className="min-w-0 text-right">
             <p className="text-sm font-medium">
               Panel administrativo
             </p>
 
-            <p className="mt-1 hidden text-xs text-white/50 sm:block">
+            <p className="mt-1 hidden truncate text-xs text-white/50 sm:block">
               {user.email}
             </p>
           </div>
@@ -186,7 +217,7 @@ export default async function EvaluationDetailPage({
         </Link>
 
         <div className="mt-7 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div>
+          <div className="min-w-0">
             <p className="text-sm font-semibold text-[#ed741f]">
               Detalle de evaluación
             </p>
@@ -286,7 +317,7 @@ export default async function EvaluationDetailPage({
                   <dt className="text-sm text-black/45">
                     Nombre completo
                   </dt>
-                  <dd className="mt-1 font-medium">
+                  <dd className="mt-1 break-words font-medium">
                     {evaluation.full_name}
                   </dd>
                 </div>
@@ -313,7 +344,7 @@ export default async function EvaluationDetailPage({
                   <dt className="text-sm text-black/45">
                     Cargo o función
                   </dt>
-                  <dd className="mt-1 font-medium">
+                  <dd className="mt-1 break-words font-medium">
                     {evaluation.position}
                   </dd>
                 </div>
@@ -322,7 +353,7 @@ export default async function EvaluationDetailPage({
                   <dt className="text-sm text-black/45">
                     Empresa
                   </dt>
-                  <dd className="mt-1 font-medium">
+                  <dd className="mt-1 break-words font-medium">
                     {evaluation.company_name}
                   </dd>
                 </div>
@@ -378,7 +409,7 @@ export default async function EvaluationDetailPage({
                   return (
                     <div key={dimension.id}>
                       <div className="flex items-start justify-between gap-4">
-                        <div>
+                        <div className="min-w-0">
                           <p className="font-semibold">
                             {dimension.id}. {dimension.name}
                           </p>
@@ -388,7 +419,7 @@ export default async function EvaluationDetailPage({
                           </p>
                         </div>
 
-                        <p className="whitespace-nowrap font-semibold">
+                        <p className="shrink-0 whitespace-nowrap font-semibold">
                           {dimension.score}/{dimension.maxScore}
                         </p>
                       </div>
@@ -397,7 +428,7 @@ export default async function EvaluationDetailPage({
                         <div
                           className="h-full rounded-full bg-[#f37521]"
                           style={{
-                            width: `${percentage}%`,
+                            width: `${Math.min(percentage, 100)}%`,
                           }}
                         />
                       </div>
@@ -409,8 +440,8 @@ export default async function EvaluationDetailPage({
           </div>
         </div>
 
-        <article className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
-          <div className="border-b border-black/10 px-6 py-5 sm:px-7">
+        <section className="mt-5 rounded-3xl border border-black/10 bg-white p-5 shadow-sm sm:p-7">
+          <div>
             <p className="text-sm font-semibold text-[#ed741f]">
               Cuestionario respondido
             </p>
@@ -418,51 +449,86 @@ export default async function EvaluationDetailPage({
             <h2 className="mt-2 text-2xl font-semibold">
               Respuestas de la evaluación
             </h2>
+
+            <p className="mt-2 text-sm leading-6 text-black/50">
+              Selecciona una dimensión para revisar sus respuestas.
+            </p>
           </div>
 
-          <div className="divide-y divide-black/10">
-            {questions.map((question) => {
-              const value =
-                evaluation.answers[String(question.id)] ??
-                evaluation.answers[question.id];
+          <div className="mt-7 space-y-4">
+            {questionGroups.map((group, groupIndex) => {
+              const percentage = Math.round(
+                (group.score / group.maxScore) * 100,
+              );
 
               return (
-                <div
-                  key={question.id}
-                  className="grid gap-4 px-6 py-5 sm:grid-cols-[1fr_auto] sm:items-center sm:px-7"
+                <details
+                  key={group.id}
+                  open={groupIndex === 0}
+                  className="group overflow-hidden rounded-2xl border border-black/10 bg-[#fafaf9]"
                 >
-                  <div className="flex items-start gap-4">
-                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#fff3ea] text-sm font-semibold text-[#d95f12]">
-                      {question.id}
-                    </span>
-
-                    <div>
-                      <p className="font-medium leading-6">
-                        {question.text}
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-5 transition hover:bg-black/[0.025] sm:px-5">
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-[#ed741f]">
+                        Dimensión {group.id}
                       </p>
 
-                      <p className="mt-1 text-xs text-black/40">
-                        Dimensión {question.dimension}
+                      <h3 className="mt-1 text-base font-semibold sm:text-lg">
+                        {group.name}
+                      </h3>
+
+                      <p className="mt-1 text-sm text-black/45">
+                        {group.score}/{group.maxScore} puntos ·{" "}
+                        {percentage}% del máximo
                       </p>
                     </div>
-                  </div>
 
-                  <span
-                    className={`inline-flex w-fit rounded-xl px-4 py-2 text-sm font-semibold ${
-                      value === 5
-                        ? "bg-[#f37521] text-white"
-                        : value === 3
-                          ? "bg-amber-50 text-amber-700"
-                          : "bg-black/[0.05] text-black/65"
-                    }`}
-                  >
-                    {getAnswerLabel(value)}
-                  </span>
-                </div>
+                    <span
+                      aria-hidden="true"
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/10 bg-white text-xl transition-transform group-open:rotate-45"
+                    >
+                      +
+                    </span>
+                  </summary>
+
+                  <div className="border-t border-black/10 bg-white">
+                    {group.questions.map((question) => {
+                      const value =
+                        evaluation.answers[String(question.id)];
+
+                      return (
+                        <div
+                          key={question.id}
+                          className="border-b border-black/10 px-4 py-5 last:border-b-0 sm:px-5"
+                        >
+                          <div className="flex items-start gap-3 sm:gap-4">
+                            <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#fff3ea] text-sm font-semibold text-[#d95f12]">
+                              {question.id}
+                            </span>
+
+                            <div className="min-w-0 flex-1">
+                              <p className="text-sm font-medium leading-6 sm:text-base">
+                                {question.text}
+                              </p>
+
+                              <span
+                                className={`mt-3 inline-flex rounded-xl px-4 py-2 text-sm font-semibold ${getAnswerStyles(
+                                  value,
+                                )}`}
+                              >
+                                {getAnswerLabel(value)}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </details>
               );
             })}
           </div>
-        </article>
+        </section>
       </section>
     </main>
   );
