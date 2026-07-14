@@ -3,6 +3,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import LogoutButton from "./LogoutButton";
+
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -94,15 +96,19 @@ export default async function AdminPage() {
             />
           </Link>
 
-          <div className="text-right">
-            <p className="text-sm font-medium">
-              Panel administrativo
-            </p>
+          <div className="flex items-center gap-5">
+  <div className="hidden text-right sm:block">
+    <p className="text-sm font-medium">
+      Panel administrativo
+    </p>
 
-            <p className="mt-1 text-xs text-white/50">
-              {user.email}
-            </p>
-          </div>
+    <p className="mt-1 text-xs text-white/50">
+      {user.email}
+    </p>
+  </div>
+
+  <LogoutButton />
+</div>
         </div>
       </header>
 
@@ -208,6 +214,9 @@ export default async function AdminPage() {
                     <th className="px-6 py-4 font-medium">
                       Nivel
                     </th>
+                    <th className="px-6 py-4 font-medium">
+  Acción
+</th>
                   </tr>
                 </thead>
 
@@ -243,14 +252,23 @@ export default async function AdminPage() {
                       </td>
 
                       <td className="px-6 py-4 font-semibold">
-                        {evaluation.total_score}/100
-                      </td>
+  {evaluation.total_score}/100
+</td>
 
-                      <td className="px-6 py-4">
-                        <span className="inline-flex rounded-full bg-[#fff3ea] px-3 py-1 text-xs font-semibold text-[#d95f12]">
-                          {evaluation.result_level}
-                        </span>
-                      </td>
+<td className="px-6 py-4">
+  <span className="inline-flex rounded-full bg-[#fff3ea] px-3 py-1 text-xs font-semibold text-[#d95f12]">
+    {evaluation.result_level}
+  </span>
+</td>
+
+<td className="px-6 py-4">
+  <Link
+    href={`/admin/evaluaciones/${evaluation.id}`}
+    className="inline-flex whitespace-nowrap rounded-xl border border-black/15 px-4 py-2 text-xs font-semibold transition hover:border-[#f37521] hover:text-[#d95f12]"
+  >
+    Ver detalle
+  </Link>
+</td>
                     </tr>
                   ))}
                 </tbody>
