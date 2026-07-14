@@ -12,10 +12,10 @@ export default function Home() {
             width={260}
             height={90}
             priority
-            className="h-auto w-[180px] sm:w-[230px] md:w-[260px]"
+            className="h-auto w-[155px] sm:w-[230px] md:w-[260px]"
           />
 
-          <div className="flex items-center gap-4 sm:gap-6">
+          <div className="flex shrink-0 flex-col items-end gap-2 sm:flex-row sm:items-center sm:gap-6">
   <Link
     href="/admin/login"
     className="text-sm text-white/70 transition hover:text-[#f37521]"
