@@ -51,16 +51,16 @@ router.push("/evaluacion/cuestionario");
     <main className="min-h-screen bg-[#f5f5f3] text-[#171717]">
       <header className="border-b border-white/10 bg-[#050505]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <Link href="/">
-            <Image
-              src="/images/logo-olave-echenique.jpeg"
-              alt="OlaveEchenique Abogados y Consultores"
-              width={220}
-              height={80}
-              className="h-auto w-[190px]"
-              priority
-            />
-          </Link>
+  <Link href="/">
+    <Image
+      src="/images/logo-olave-echenique.jpeg"
+      alt="Olave Echenique Abogados y Consultores"
+      width={360}
+      height={125}
+      className="h-auto w-[240px] sm:w-[300px] md:w-[360px]"
+      priority
+    />
+  </Link>
 
           <Link
             href="/"
