@@ -120,8 +120,8 @@ export default function Home() {
 
               <div className="mt-8 rounded-2xl border border-[#f37521]/20 bg-[#f37521]/10 p-5">
                 <p className="text-sm leading-6 text-white/70">
-                  La evaluación toma aproximadamente 10 minutos y entrega un
-                  resultado entre 0 y 100 puntos.
+                  Obtén un resultado entre 0 y 100 puntos, identifica oportunidades de mejora
+  y descubre cómo fortalecer la gestión tributaria de tu empresa.
                 </p>
               </div>
             </div>
