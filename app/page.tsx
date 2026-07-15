@@ -6,14 +6,14 @@ export default function Home() {
     <main className="min-h-screen bg-[#050505] text-white">
       <header className="border-b border-white/10">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
-          <Image
-            src="/images/logo-olave-echenique.jpeg"
-            alt="OlaveEchenique Abogados y Consultores"
-            width={260}
-            height={90}
-            priority
-            className="h-auto w-[155px] sm:w-[230px] md:w-[260px]"
-          />
+  <Image
+    src="/images/logo-olave-echenique.jpeg"
+    alt="Olave Echenique Abogados y Consultores"
+    width={360}
+    height={125}
+    priority
+    className="h-auto w-[240px] sm:w-[300px] md:w-[360px]"
+  />
 
           <div className="flex shrink-0 flex-col items-end gap-2 sm:flex-row sm:items-center sm:gap-6">
   <Link
