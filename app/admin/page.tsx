@@ -84,15 +84,15 @@ export default async function AdminPage() {
   return (
     <main className="min-h-screen bg-[#f5f5f3] text-[#171717]">
       <header className="border-b border-white/10 bg-black text-white">
-  <div className="mx-auto flex min-h-[130px] max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+  <div className="mx-auto flex min-h-[96px] max-w-7xl items-center justify-between px-5 py-3 sm:px-6 lg:px-8">
     <Link href="/">
       <Image
         src="/images/logo-olave-echenique.jpeg"
-        alt="Olave Echenique"
-        width={360}
-        height={125}
+        alt="Olave Echenique Abogados y Consultores"
+        width={280}
+        height={96}
         priority
-        className="h-auto w-[280px] object-contain sm:w-[340px]"
+        className="h-auto w-[210px] sm:w-[240px] lg:w-[270px]"
       />
     </Link>
 
