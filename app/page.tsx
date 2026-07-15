@@ -54,9 +54,7 @@ export default function Home() {
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-white/65">
-              Conoce qué tan preparada está tu empresa en materia de
-              sostenibilidad tributaria mediante una evaluación de 20
-              preguntas.
+              Evalúa en menos de 3 minutos el nivel de preparación tributaria de tu empresa. Recibe un diagnóstico personalizado, detecta posibles brechas y descubre cómo avanzar con mayor claridad y confianza.
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
