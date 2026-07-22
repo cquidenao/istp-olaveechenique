@@ -263,7 +263,7 @@ export default async function EvaluationDetailPage({
                 Nivel alcanzado
               </p>
 
-              <p className="mt-2 text-2xl font-semibold text-[#f37521]">
+              <p className="text-justify mt-2 text-2xl font-semibold text-[#f37521]">
                 {evaluation.result_level}
               </p>
             </article>
@@ -317,7 +317,7 @@ export default async function EvaluationDetailPage({
                   <dt className="text-sm text-black/45">
                     Nombre completo
                   </dt>
-                  <dd className="mt-1 break-words font-medium">
+                  <dd className="text-justify mt-1 break-words font-medium">
                     {evaluation.full_name}
                   </dd>
                 </div>
@@ -326,7 +326,7 @@ export default async function EvaluationDetailPage({
                   <dt className="text-sm text-black/45">
                     Correo electrónico
                   </dt>
-                  <dd className="mt-1 break-all font-medium">
+                  <dd className="text-justify mt-1 break-all font-medium">
                     {evaluation.email}
                   </dd>
                 </div>
@@ -353,7 +353,7 @@ export default async function EvaluationDetailPage({
                   <dt className="text-sm text-black/45">
                     Empresa
                   </dt>
-                  <dd className="mt-1 break-words font-medium">
+                  <dd className="text-justify mt-1 break-words font-medium">
                     {evaluation.company_name}
                   </dd>
                 </div>
@@ -362,7 +362,7 @@ export default async function EvaluationDetailPage({
                   <dt className="text-sm text-black/45">
                     Ciudad
                   </dt>
-                  <dd className="mt-1 font-medium">
+                  <dd className="text-justify mt-1 font-medium">
                     {evaluation.city}
                   </dd>
                 </div>
@@ -372,7 +372,7 @@ export default async function EvaluationDetailPage({
                     <dt className="text-sm text-black/45">
                       RUT de empresa
                     </dt>
-                    <dd className="mt-1 font-medium">
+                    <dd className="text-justify mt-1 font-medium">
                       {evaluation.company_tax_id}
                     </dd>
                   </div>
@@ -383,7 +383,7 @@ export default async function EvaluationDetailPage({
                     <dt className="text-sm text-black/45">
                       Tamaño de empresa
                     </dt>
-                    <dd className="mt-1 font-medium">
+                    <dd className="text-justify mt-1 font-medium">
                       {evaluation.employee_range}
                     </dd>
                   </div>

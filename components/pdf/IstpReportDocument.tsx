@@ -351,6 +351,7 @@ const styles = StyleSheet.create({
     color: "#4F4F4F",
     fontSize: 9.2,
     lineHeight: 1.55,
+    textAlign: "justify",
   },
 
   insightGrid: {
